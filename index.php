@@ -1,5 +1,4 @@
 <?php
-// Include the database file
 require_once 'db.php';
 
 // Get the request URI and HTTP method
@@ -46,7 +45,6 @@ if ($request === '/habits' && $method === 'POST') {
     $input = file_get_contents("php://input");
     $data = json_decode($input, true);
 
-    // Validate required fields (remove 'id' because it's auto-generated)
     if (!isset($data['name'], $data['description'], $data['frequency'], $data['startDate'])) {
         http_response_code(400);
         echo json_encode(["error" => "Missing required fields."]);
