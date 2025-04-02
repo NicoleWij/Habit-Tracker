@@ -7,7 +7,7 @@ function getPDO() {
             $pdo = new PDO('sqlite:habits.db');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            // If the connection fails, we can’t proceed.
+            // If the connection fails, we can't proceed.
             http_response_code(500);
             echo json_encode(["error" => "Database connection error: " . $e->getMessage()]);
             exit;
@@ -38,6 +38,24 @@ function createHabit($data) {
         ':frequency' => $data['frequency'],
         ':startDate' => $data['startDate'],
     ]);
-    // returns the last inserted ID
     return $pdo->lastInsertId();
 }
+
+function updateHabit($id, $data) {
+    $pdo = getPDO();
+    $stmt = $pdo->prepare("UPDATE habits SET name = :name, description = :description, frequency = :frequency, startDate = :startDate WHERE id = :id");
+    return $stmt->execute([
+        ':name' => $data['name'],
+        ':description' => $data['description'],
+        ':frequency' => $data['frequency'],
+        ':startDate' => $data['startDate'],
+        ':id' => $id
+    ]);
+}
+
+function deleteHabit($id) {
+    $pdo = getPDO();
+    $stmt = $pdo->prepare("DELETE FROM habits WHERE id = :id");
+    return $stmt->execute([':id' => $id]);
+}
+?>

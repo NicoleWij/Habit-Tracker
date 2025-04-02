@@ -9,6 +9,8 @@ This project was given to me during Netlight Tech Avenue as a practice project t
 - **GET /habits**: Retrieve all habits.
 - **GET /habits/{id}**: Retrieve a specific habit by its ID.
 - **POST /habits**: Create a new habit.
+- **PATCH /habits/{id}**: Update information for a specific habit.
+- **DELETE /habits/{id}**: Delete a specific habit.
 
 ## Setup Instructions
 
